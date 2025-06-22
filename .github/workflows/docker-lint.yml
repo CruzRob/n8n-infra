@@ -1,0 +1,21 @@
+name: Docker Compose Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Instala Docker Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+
+      - name: Valida docker-compose.yml
+        run: docker-compose -f docker-compose.yml config
