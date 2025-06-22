@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=n8n
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=suasenhaforte
+      - N8N_ENCRYPTION_KEY=sua-chave-secreta
+      - N8N_HOST=n8n.yellowstudyo.com.br
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+    volumes:
+      - /opt/yellowstack/n8n/data:/home/node/.n8n
+    networks:
+      - yellowstack_net
+
+networks:
+  yellowstack_net:
+    external: true
